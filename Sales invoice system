@@ -1,0 +1,62 @@
+transaction_counts = 0
+total_sales = 0
+
+products = ['banana_cue', 'cassava_cake', 'footlong', 'bread_bun', 'siopao', 'juice']
+prices = [12.00, 20.00, 30.00, 10.00, 30.00, 15.00]
+
+while True:
+    current_transaction_total = 0
+
+    print("AVAILABLE FOODS")
+    for i in range(len(products)):
+        print(products[i], "-", "₱", prices[i])
+
+    while True:
+        product = input('Choose anything available on the list or (enter "next" to finish and pay): ')
+        
+        if product == 'next':
+            break
+        
+        if product not in products:
+            print(f"Product '{product}' not found Please try again")
+            continue
+
+        quantity = int(input("Enter how many: "))
+        price = prices[products.index(product)]
+        subtotal = quantity * price
+        current_transaction_total = current_transaction_total + subtotal
+
+        print(f": {product} = {quantity} x ₱{price} = ₱{subtotal}")
+        print(f"Current Total: ₱{current_transaction_total}")
+
+    if current_transaction_total == 0:
+        print("Did not choose anything. Please try again.")
+        continue
+
+    print("\nCalculating...")
+    print(f"Total amount: ₱{current_transaction_total}")
+
+    payment = int(input("Enter payment amount: ₱"))
+
+    if payment < current_transaction_total:
+        print("Inefficient amount. Please try again.")
+        continue
+
+    change = payment - current_transaction_total
+    print(f"Change: ₱{change}")
+
+    transaction_counts = transaction_counts + 1
+    total_sales = total_sales + current_transaction_total
+
+    print("\n........................")
+    print(f"Total Transactions: {transaction_counts}")
+    print(f"Total Sales: ₱{total_sales}")
+
+
+    continue_transaction = input("Start another transaction? (yes/no): ")
+    if continue_transaction == 'yes':
+        continue
+    else:
+        break
+
+
