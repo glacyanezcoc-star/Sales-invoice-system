@@ -1,0 +1,476 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+
+class Product {
+    int id;
+    String name;
+    double price;
+    int stock;
+
+    Product(int id, String name, double price, int stock) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.stock = stock;
+    }
+
+    void display() {
+        System.out.println("ID: " + id + " Product Name: " + name +
+                ", Price: P=" + String.format("%.2f", price) +
+                ", Stock: " + stock);
+    }
+}
+
+public class JavaApplication4 {
+
+    static int getValidInt(Scanner scanner, String message) {
+        while (true) {
+            System.out.print(message);
+            String input = scanner.nextLine();
+            try {
+                return Integer.parseInt(input);
+            } catch (Exception e) {
+                System.out.println("Invalid input! Numbers only.");
+            }
+        }
+    }
+
+    static int getValidChoice(Scanner scanner, String message, int min, int max) {
+        while (true) {
+            int choice = getValidInt(scanner, message);
+            if (choice >= min && choice <= max) return choice;
+            System.out.println("Invalid choice! Choose between " + min + " and " + max);
+        }
+    }
+
+    static double getValidDouble(Scanner scanner, String message) {
+        while (true) {
+            System.out.print(message);
+            String input = scanner.nextLine();
+            try {
+                return Double.parseDouble(input);
+            } catch (Exception e) {
+                System.out.println("Invalid input! Numbers only.");
+            }
+        }
+    }
+
+    static String getYesNo(Scanner scanner, String message) {
+        while (true) {
+            System.out.print(message);
+            String input = scanner.nextLine();
+            if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("no")) return input;
+            System.out.println("Invalid input! Enter Yes or No.");
+        }
+    }
+    
+    static boolean isIdExists(ArrayList<Product> inventory, int id) {
+        for (Product p : inventory) {
+            if (p.id == id) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Product> inventory1 = new ArrayList<>();
+
+        inventory1.add(new Product(1, "Cleanser", 148.00, 100));
+        inventory1.add(new Product(2, "Sunscreen", 389.00, 100));
+        inventory1.add(new Product(3, "Moisturizer", 379.00, 100));
+        inventory1.add(new Product(4, "Serum", 239.00, 100));
+        inventory1.add(new Product(5, "Facial Mask", 101.00, 100));
+        inventory1.add(new Product(6, "Setting Spray", 389.00, 100));
+        inventory1.add(new Product(7, "Highlighter", 179.00, 100));
+        inventory1.add(new Product(8, "Eyeshadow Palette", 369.00, 100));
+        inventory1.add(new Product(9, "Face Powder", 258.00, 100));
+        inventory1.add(new Product(10, "Toner", 248.00, 100));
+        inventory1.add(new Product(11, "Dove Deeply Nourishing Body Wash(550ml)", 320.00, 100));
+        inventory1.add(new Product(12, "Nivea Extra Bright Body Serum (180ml)", 230.00, 100));
+        inventory1.add(new Product(13, "Vaseline Gluta-Hya Serum Burst Lotion (330ml)", 340.00, 100));
+        inventory1.add(new Product(14, "Belo Intensive Whitening Bar Soap (135g)", 95.00, 100));
+        inventory1.add(new Product(15, "Johnson’s Milk Baby Lotion (200ml)", 150.00, 100));
+        inventory1.add(new Product(16, "Maybelline Fit Me Foundation (30ml)", 399.00, 100));
+        inventory1.add(new Product(17, "Careline Oil Control Face Powder", 165.00, 100));
+        inventory1.add(new Product(18, "Ever Bilena Matte Lipstick", 180.00, 100));
+        inventory1.add(new Product(19, "Nichido Final Powder", 150.00, 100));
+        inventory1.add(new Product(20, "BYS Mascara Lash Boost", 250.00, 100));
+        inventory1.add(new Product(21, "Squad Cosmetics Eyeshadow Palette", 199.00, 100));
+        inventory1.add(new Product(22, "Luxe Organix Aloe Vera Soothing Gel (300ml)", 299.00, 100));
+        inventory1.add(new Product(23, "Celeteque Hydration Facial Wash (100ml)", 180.00, 100));
+        inventory1.add(new Product(24, "Garnier Micellar Cleansing Water (125ml)", 180.00, 100));
+        inventory1.add(new Product(25, "Pond’s Bright Miracle Day Cream (50g)", 280.00, 100));
+        inventory1.add(new Product(26, "Sunsilk Smooth & Manageable Shampoo (350ml)", 180.00, 100));
+        inventory1.add(new Product(27, "Cream Silk Conditioner Standout Straight (350ml)", 190.00, 100));
+        inventory1.add(new Product(28, "Dove Intense Repair Shampoo (340ml)", 210.00, 100));
+        inventory1.add(new Product(29, "Vitress Hair Polish Cuticle Coat (50ml)", 120.00, 100));
+        inventory1.add(new Product(30, "Maybelline Superstay Matte Ink Lipstick", 299.00, 100));
+
+        String OwnerAcc = "owner";
+        String OwnerPass = "12345678";
+
+        String CashierAcc = "cashier";
+        String CashierPass = "12345678";
+
+        int login;
+
+        do {
+            System.out.println("\nWELCOME TO OUR SYSTEM!!!");
+            System.out.println("1. Owner");
+            System.out.println("2. Cashier");
+            System.out.println("3. Exit");
+
+            login = getValidChoice(scanner, "Enter your choice: ", 1, 3);
+
+            switch (login) {
+
+                case 1:
+                    boolean managerLoggedIn = false;
+                    while (!managerLoggedIn) {
+                        System.out.print("Enter Username: ");
+                        String username = scanner.nextLine();
+                        System.out.print("Enter Password: ");
+                        String password = scanner.nextLine();
+
+                        if (username.equals(OwnerAcc) && password.equals(OwnerPass)) {
+                            System.out.println("Login Successfully!");
+                            managerLoggedIn = true;
+                        } else {
+                            System.out.println("Login Failed. Try again.\n");
+                        }
+                    }
+
+                    int mChoice;
+                    do {
+                        System.out.println("\n--- Owner Menu ---");
+                        System.out.println("1. View All Products");
+                        System.out.println("2. Add Product");
+                        System.out.println("3. Remove Product");
+                        System.out.println("4. Return");
+
+                        mChoice = getValidChoice(scanner, "Enter choice: ", 1, 4);
+
+                        switch (mChoice) {
+
+                            case 1:
+                                if (inventory1.isEmpty()) {
+                                    System.out.println("No products available.");
+                                } else {
+                                    for (Product p : inventory1) {
+                                        p.display();
+                                    }
+                                }
+
+                                boolean running = true;
+                                while (running) {
+                                    System.out.println("\nWould you like to:");
+                                    System.out.println("1. Add Stock");
+                                    System.out.println("2. Deduct Stock");
+                                    System.out.println("3. Add Price");
+                                    System.out.println("4. Deduct Price");
+                                    System.out.println("5. Return");
+
+                                    int productChoice = getValidChoice(scanner, "Enter choice: ", 1, 5);
+
+                                    switch (productChoice) {
+
+                                        case 1:
+                                            while (true) {
+                                                int addID = getValidInt(scanner, "Enter Product ID: ");
+                                                boolean found = false;
+
+                                                for (Product p : inventory1) {
+                                                    if (p.id == addID) {
+                                                        int addAmount = getValidInt(scanner, "Enter Stock Amount to add: ");
+                                                        if (addAmount >= 0) {
+                                                            p.stock += addAmount;
+                                                            System.out.println("Stock added!");
+                                                            p.display();
+                                                        } else {
+                                                            System.out.println("Cannot be negative!");
+                                                        }
+                                                        found = true;
+                                                        break;
+                                                    }
+                                                }
+
+                                                if (!found) System.out.println("Product not found!");
+
+                                                String again = getYesNo(scanner, "Add stock again? (Yes/No): ");
+                                                if (again.equalsIgnoreCase("no")) break;
+                                            }
+                                            break;
+
+                                        case 2:
+                                            while (true) {
+                                                int deductID = getValidInt(scanner, "Enter Product ID: ");
+                                                boolean found = false;
+
+                                                for (Product p : inventory1) {
+                                                    if (p.id == deductID) {
+                                                        int deductAmount = getValidInt(scanner, "Enter Stock Amount to deduct: ");
+
+                                                        if (deductAmount < 0) System.out.println("Cannot be negative!");
+                                                        else if (deductAmount > p.stock) System.out.println("Not enough stock!");
+                                                        else {
+                                                            p.stock -= deductAmount;
+                                                            System.out.println("Stock deducted!");
+                                                            p.display();
+                                                        }
+
+                                                        found = true;
+                                                        break;
+                                                    }
+                                                }
+
+                                                if (!found) System.out.println("Product not found!");
+
+                                                String again = getYesNo(scanner, "Deduct stock again? (Yes/No): ");
+                                                if (again.equalsIgnoreCase("no")) break;
+                                            }
+                                            break;
+
+                                        case 3:
+                                            while (true) {
+                                                int priceID = getValidInt(scanner, "Enter Product ID: ");
+                                                boolean found = false;
+
+                                                for (Product p : inventory1) {
+                                                    if (p.id == priceID) {
+                                                        double addPrice = getValidDouble(scanner, "Enter Price Amount to Add: ");
+
+                                                        if (addPrice >= 0) {
+                                                            p.price += addPrice;
+                                                            System.out.println("Price updated!");
+                                                            p.display();
+                                                        } else {
+                                                            System.out.println("Cannot be negative!");
+                                                        }
+
+                                                        found = true;
+                                                        break;
+                                                    }
+                                                }
+
+                                                if (!found) System.out.println("Product not found!");
+
+                                                String again = getYesNo(scanner, "Add price again? (Yes/No): ");
+                                                if (again.equalsIgnoreCase("no")) break;
+                                            }
+                                            break;
+
+                                        case 4:
+                                            while (true) {
+                                                int priceID2 = getValidInt(scanner, "Enter Product ID: ");
+                                                boolean found = false;
+
+                                                for (Product p : inventory1) {
+                                                    if (p.id == priceID2) {
+                                                        double deductPrice = getValidDouble(scanner, "Enter Price Amount to Deduct: ");
+
+                                                        if (deductPrice < 0) System.out.println("Cannot be negative!");
+                                                        else if (deductPrice > p.price) System.out.println("Price cannot go negative!");
+                                                        else {
+                                                            p.price -= deductPrice;
+                                                            System.out.println("Price updated!");
+                                                            p.display();
+                                                        }
+
+                                                        found = true;
+                                                        break;
+                                                    }
+                                                }
+
+                                                if (!found) System.out.println("Product not found!");
+
+                                                String again = getYesNo(scanner, "Deduct price again? (Yes/No): ");
+                                                if (again.equalsIgnoreCase("no")) break;
+                                            }
+                                            break;
+
+                                        case 5:
+                                            running = false;
+                                            break;
+                                    }
+                                }
+                                break;
+
+                            case 2:
+                                int id;
+
+                                while (true) {
+                                    id = getValidInt(scanner, "Enter product ID: ");
+                                    if (isIdExists(inventory1, id)) {
+                                        System.out.println("ID already exists! Try a different ID.");
+                                    } else {
+                                        break;
+                                    }
+                                }
+
+                                System.out.print("Enter product name: ");
+                                String name = scanner.nextLine();
+                                double price = getValidDouble(scanner, "Enter price: ");
+                                int stock = getValidInt(scanner, "Enter stock: ");
+
+                                inventory1.add(new Product(id, name, price, stock));
+                                System.out.println("Product added!");
+                                break;
+
+                            case 3:
+                                int removeId = getValidInt(scanner, "Enter product ID to remove: ");
+                                boolean found = false;
+
+                                for (int i = 0; i < inventory1.size(); i++) {
+                                    if (inventory1.get(i).id == removeId) {
+                                        inventory1.remove(i);
+                                        System.out.println("Product removed successfully!");
+                                        found = true;
+                                        break;
+                                    }
+                                }
+
+                                if (!found) System.out.println("Product not found!");
+                                break;
+                        }
+
+                    } while (mChoice != 4);
+                    break;
+
+                case 2:
+                    boolean cashierLoggedIn = false;
+                    while (!cashierLoggedIn) {
+                        System.out.print("Enter Username: ");
+                        String username = scanner.nextLine();
+                        System.out.print("Enter Password: ");
+                        String password = scanner.nextLine();
+
+                        if (CashierAcc.equals(username) &&
+                                CashierPass.equals(password)) {
+                            System.out.println("Login Successfully!");
+                            cashierLoggedIn = true;
+                        } else {
+                            System.out.println("Login Failed. Try again.\n");
+                        }
+                    }
+
+                    ArrayList<Product> cart = new ArrayList<>();
+                    ArrayList<Integer> quantities = new ArrayList<>();
+
+                    int cChoice;
+
+                    do {
+                        System.out.println("\n--- Cashier Menu ---");
+                        System.out.println("1. View Products");
+                        System.out.println("2. Buy Product");
+                        System.out.println("3. View Cart");
+                        System.out.println("4. Checkout");
+                        System.out.println("5. Return");
+
+                        cChoice = getValidChoice(scanner, "Enter choice: ", 1, 5);
+
+                        switch (cChoice) {
+
+                            case 1:
+                                for (Product p : inventory1) p.display();
+                                break;
+
+                            case 2:
+                                int id2 = getValidInt(scanner, "Enter Product ID: ");
+                                boolean found2 = false;
+
+                                for (Product p : inventory1) {
+                                    if (p.id == id2) {
+                                        int qty = getValidInt(scanner, "Enter Quantity: ");
+
+                                        if (qty <= 0) {
+                                            System.out.println("Invalid quantity!");
+                                        } else if (qty > p.stock) {
+                                            System.out.println("Not enough stock!");
+                                        } else {
+                                            p.stock -= qty;
+                                            cart.add(p);
+                                            quantities.add(qty);
+                                            System.out.println("Added to cart!");
+                                        }
+
+                                        found2 = true;
+                                        break;
+                                    }
+                                }
+
+                                if (!found2) System.out.println("Product not found!");
+                                break;
+
+                            case 3:
+                                if (cart.isEmpty()) {
+                                    System.out.println("Cart is empty.");
+                                } else {
+                                    double total = 0;
+
+                                    for (int i = 0; i < cart.size(); i++) {
+                                        Product p = cart.get(i);
+                                        int qty = quantities.get(i);
+                                        double subtotal = p.price * qty;
+
+                                        System.out.println(p.name + " x" + qty + " = P=" + String.format("%.2f", subtotal));
+                                        total += subtotal;
+                                    }
+
+                                    System.out.println("Total: P=" + String.format("%.2f", total));
+                                }
+                                break;
+
+                            case 4:
+                                if (cart.isEmpty()) {
+                                    System.out.println("Cart is empty.");
+                                    break;
+                                }
+
+                                double total = 0;
+
+                                for (int i = 0; i < cart.size(); i++) {
+                                    total += cart.get(i).price * quantities.get(i);
+                                }
+                                
+                                System.out.println("Total amount: P=" + String.format("%.2f", total));
+      
+                                double payment;
+                                while(true){
+                                payment = getValidDouble(scanner, "Enter payment: ");
+
+                                if (payment < total) {
+                                    System.out.println("Insufficient payment!");
+                                } else {
+                                    break;
+                                }}
+                                double change = payment - total;
+
+                                    System.out.println("Payment: P=" + String.format("%.2f", payment));
+                                    System.out.println("Change: P=" + String.format("%.2f", change));
+                                    System.out.println("Transaction complete!");
+
+                                    cart.clear();
+                                    quantities.clear();
+                                break;
+
+                            case 5:
+                                System.out.println("Returning...");
+                                break;
+                        }
+
+                    } while (cChoice != 5);
+                    break;
+
+                case 3:
+                    System.out.println("Goodbye!");
+                    break;
+            }
+
+        } while (login != 3);
+
+        scanner.close();
+    }
+}
